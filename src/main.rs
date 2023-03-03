@@ -1,10 +1,15 @@
 use std::io;
 
+use rand::Rng;
+
 fn main() -> () {
     print!("Guess the number! - ");
     println!("Please input your guess");
 
     let mut guess = String::new();
+
+    // gera número aleatório entre 1 e 100, após recuperar um RNG com seed inicial dada pelo sistema
+    let _secret_number = rand::thread_rng().gen_range(1..=100);
 
     /*
     io::stdin() é uma função que permite usar o stdin,
@@ -13,8 +18,7 @@ fn main() -> () {
     */
 
     //exemplo não idiomático
-    let result = io::stdin()
-        .read_line(&mut guess);
+    let result = io::stdin().read_line(&mut guess);
 
     if result.is_ok() {
         println!("You guessed it: {guess}");
@@ -26,5 +30,4 @@ fn main() -> () {
         .expect("should have a value");
 
     println!("You guessed it: {guess}")
-    
 }

@@ -1,52 +1,26 @@
-use std::{io::{self, Stdin}, cmp::Ordering, num};
+/*
+You made it! 
+This was a sizable chapter: 
+you learned about variables, scalar and compound data types, functions, comments, if expressions, and loops!
 
-use rand::Rng;
+To practice with the concepts discussed in this chapter, try building programs to do the following:
 
-fn main() -> () {
-    print!("Guess the number! - ");
+-[x] Convert temperatures between Fahrenheit and Celsius.
 
-    // gera número aleatório entre 1 e 100, após recuperar um RNG da thread atual com seed inicial dada pelo SO
-    let secret_number = rand::thread_rng().gen_range(1..=100);
-    
-    loop {
-        println!("Please input your guess");
+-[ ] Generate the nth Fibonacci number.
 
-        let mut guess = String::new();
+-[ ] Print the lyrics to the Christmas carol “The Twelve Days of Christmas”,
+taking advantage of the repetition in the song. */
 
-        /*
-        io::stdin() é uma função que permite usar o stdin,
-        read_line() é uma função que guarda o valor da linha lida em uma variável mutável, através do borrow checker e retorna um Result
-        expect() é executada caso o Result retornado por read_line() seja diferente de Ok
-        */
+fn main() {
+    println!("{} °C | {} °F", 14.0, celsius_to_fahrenheit(14.0));
+    println!("{} °C | {} °F", fahrenheit_to_celsius(57.2), 57.2);
+}
 
-        // exemplo não idiomático
-        // let stdin: Stdin = io::stdin();
-        // let result: Result<usize, io::Error> = stdin.read_line(&mut guess);
+fn celsius_to_fahrenheit(temp: f64) -> f64 {
+    temp * (9.0/5.0) + 32.0
+}
 
-        // if result.is_ok() {
-        //     println!("You guessed: {guess}");
-        // }
-        
-        //exemplo idiomático
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("should have an integer value");
-    
-        println!("You guessed: {guess}");
-    
-        let guess: u32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
-        };
-
-        // match é usado de forma similar a um switch case
-        match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small!"),
-            Ordering::Greater => println!("Too big!"),
-            Ordering::Equal => {
-                println!("You win!");
-                break;
-            }
-        }
-    }
+fn fahrenheit_to_celsius(temp: f64) -> f64 {
+    (temp - 32.0) * (5.0/9.0)
 }
